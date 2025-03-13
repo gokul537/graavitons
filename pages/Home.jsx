@@ -157,6 +157,9 @@ function HomePage() {
   const [staff, setStaff] = useState(0);
   const [achievers, setAchievers] = useState(0);
   const [hoveredIndex, setHoveredIndex] = useState(null);
+    // Define the state for tracking open FAQ
+    const [openIndex, setOpenIndex] = useState(null); // Move state outside of map function
+    const [activeIndex, setActiveIndex] = useState(null);
   // Function to animate numbers
   const animateCount = (setter, finalValue, duration = 2000) => {
     let start = 0;
@@ -192,16 +195,14 @@ function HomePage() {
     visible: { opacity: 1, y: 0, transition: { duration: 0.3 } }
   };
 
-  // Define the state for tracking open FAQ
-  const [openIndex, setOpenIndex] = useState(null);
+
 
   // Handler for FAQ clicks
   const handleFaqClick = (index) => {
     setOpenIndex(openIndex === index ? null : index);
   };
 
-  // Move state outside of map function
-  const [activeIndex, setActiveIndex] = useState(null);
+ 
 
   return (
     <div>
