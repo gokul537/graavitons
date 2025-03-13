@@ -78,22 +78,22 @@ const steps = [
 ];
 
 const colleges = [
-  { 
-    id: 1, 
-    name: "Government Medical College, Karur", 
+  {
+    id: 1,
+    name: "Government Medical College, Karur",
     img: starone,
-    label: "5 Students Placed" 
+    label: "5 Students Placed"
   },
-  { 
-    id: 2, 
-    name: "AIIMS Delhi", 
+  {
+    id: 2,
+    name: "AIIMS Delhi",
     img: startwo,
-    label: "3 Students Placed" 
+    label: "3 Students Placed"
   },
-  { id: 3, name: "JIPMER Pondicherry", img: starthree,label: "3 Students Placed" },
-  { id: 4, name: "CMC Vellore", img: starfour,label: "3 Students Placed" },
-  { id: 5, name: "Kasturba Medical College", img: starfive,label: "3 Students Placed" },
-  { id: 6, name: "Madras Medical College", img: starsix,label: "3 Students Placed" },
+  { id: 3, name: "JIPMER Pondicherry", img: starthree, label: "3 Students Placed" },
+  { id: 4, name: "CMC Vellore", img: starfour, label: "3 Students Placed" },
+  { id: 5, name: "Kasturba Medical College", img: starfive, label: "3 Students Placed" },
+  { id: 6, name: "Madras Medical College", img: starsix, label: "3 Students Placed" },
 ];
 
 const testimonials = [
@@ -128,7 +128,7 @@ const testimonials = [
 ];
 
 const videos = [
-  { id: 1, src: "https://www.youtube.com/embed/VIDEO_ID1" },
+  { id: 1, src: "https://youtu.be/7FqSok2QBhw?si=CUFtKrxuG6jhVeWK" },
   { id: 2, src: "https://www.youtube.com/embed/VIDEO_ID2" },
   { id: 3, src: "https://www.youtube.com/embed/VIDEO_ID3" },
 ];
@@ -200,7 +200,9 @@ function HomePage() {
     setOpenIndex(openIndex === index ? null : index);
   };
 
-  
+  // Move state outside of map function
+  const [activeIndex, setActiveIndex] = useState(null);
+
   return (
     <div>
       {/* Hero Section */}
@@ -243,7 +245,7 @@ function HomePage() {
               href="/learn-more"
               className="px-6 py-3 border border-gray-400 rounded-lg font-semibold flex items-center space-x-2 hover:bg-gray-100 transition"
             >
-              <span>Learn More</span> <span><IoIosArrowRoundForward size={26}  className="rotate-60" /></span>
+              <span>Learn More</span> <span><IoIosArrowRoundForward size={26} className="rotate-60" /></span>
             </Link>
           </motion.div>
         </motion.div>
@@ -263,7 +265,7 @@ function HomePage() {
             <Image
               src={Homestar}
               alt="Students"
-              
+
             />
           </motion.div>
 
@@ -474,20 +476,29 @@ function HomePage() {
             {steps.map((step, index) => (
               <motion.div
                 key={index}
-                className={`relative bg-[#02399E] hover:bg-white text-white hover:text-[#02399E] p-6 pt-10 pb-10 border-b-4 border-amber-50  transition-all duration-300 ${hoveredIndex === index ? "shadow-xl transform scale-105 border-b-4 border-orange-500" : ""
-                  } cursor-pointer`}
+                className={`relative bg-[#02399E] p-6 pt-10 pb-10 border-b-4 border-amber-50 
+                transition-all duration-300 cursor-pointer
+                ${hoveredIndex === index
+                    ? "shadow-xl transform scale-105 border-b-4 border-orange-500 bg-white !text-[#02399E]"
+                    : "text-white hover:bg-white hover:text-[#02399E] active:bg-white active:text-[#02399E]"
+                  }`}
                 onMouseEnter={() => setHoveredIndex(index)}
                 onMouseLeave={() => setHoveredIndex(null)}
+                onClick={() => setHoveredIndex(hoveredIndex === index ? null : index)}
                 variants={itemVariants}
               >
                 {/* Step Number */}
-                <p className="absolute top-5 left-5 text-9xl font-bold opacity-10">{step.id}</p>
+                <p className={`absolute top-5 left-5 text-9xl font-bold opacity-10 
+                transition-colors duration-300
+                ${hoveredIndex === index ? "text-[#02399E]" : "text-white"}`}>
+                  {step.id}
+                </p>
 
                 {/* Step Content */}
-                <h3 className="text-lg font-bold mt-16">{step.title}</h3>
-                <p className="text-sm mt-2">{step.description}</p>
+                <h3 className="text-lg font-bold mt-16 relative z-10">{step.title}</h3>
+                <p className="text-sm mt-2 relative z-10">{step.description}</p>
 
-                {/* ⭐ Star Icon - Only on First Card or on Hover */}
+                {/* Star Icon - Only on First Card or on Hover */}
                 {(step.highlight || hoveredIndex === index) && (
                   <motion.div
                     className="absolute top-3 right-3 text-orange-500 text-xl"
@@ -499,11 +510,8 @@ function HomePage() {
                       <path d="M15.5446 7.27036C15.8055 7.55433 14.3327 12.499 14.6627 13.5833C14.9419 14.5008 18.4568 16.9887 19.0325 18.1407L12.5796 19.1217L9.96502 24.8516C8.94829 23.9158 7.74504 19.6757 6.8081 19.0905C5.79137 18.4559 1.81719 18.5183 0.43927 18.1407C1.00316 16.8984 4.79405 14.5642 5.05497 13.579C5.35255 12.456 3.88191 8.7257 4.16008 7.26929C4.36278 7.04018 9.00652 10.0036 9.63725 10.0444C10.6227 10.1079 15.26 6.95736 15.5468 7.26929L15.5446 7.27036Z" fill="#F47D07" />
                       <path d="M24.8407 0.328325C25.1027 0.681133 24.169 3.25405 24.4202 4.0952C24.624 4.77715 26.5809 5.99692 26.9345 6.80472C26.0439 6.92196 23.8779 6.90583 23.2288 7.39739C22.8935 7.65124 21.673 10.7437 21.3592 10.5081C21.1705 10.0209 20.1182 7.47376 19.908 7.3221C19.4929 7.02307 16.9322 6.87571 16.2443 6.80579C16.4114 5.56021 18.5894 5.01594 18.7565 3.86824C18.8816 3.00773 18.1775 1.27488 18.1042 0.330476C18.2519 0.183114 20.86 1.9052 21.4908 1.94608C22.4202 2.00631 23.866 0.584325 24.8407 0.3294V0.328325Z" fill="#F47D07" />
                     </svg>
-
                   </motion.div>
                 )}
-
-
               </motion.div>
             ))}
           </motion.div>
@@ -517,34 +525,35 @@ function HomePage() {
         </div>
 
         <div className="flex justify-center items-center">
-          <div className="flex flex-wrap md:flex-nowrap justify-center md:-space-x-16 group/colleges px-4 md:px-0">
+          <div className="flex flex-wrap justify-center gap-6 md:gap-0 md:flex-nowrap md:-space-x-16 group/colleges px-4 md:px-0">
             {colleges.map((college, index) => (
               <motion.div
                 key={college.id}
-                className={`relative group transform mb-8 md:mb-0 ${
-                  index === Math.floor(colleges.length / 2) 
-                    ? 'md:rotate-0' 
+                className={`relative group transform cursor-pointer ${index === Math.floor(colleges.length / 2)
+                    ? 'md:rotate-0'
                     : index < Math.floor(colleges.length / 2)
-                    ? 'md:rotate-12'
-                    : 'md:-rotate-12'
-                }`}
+                      ? 'md:rotate-12'
+                      : 'md:-rotate-12'
+                  }`}
                 whileHover={{ scale: 1.1, zIndex: 20, rotate: 0 }}
+                whileTap={{ scale: 1.1, zIndex: 20, rotate: 0 }}
+                onClick={() => setActiveIndex(activeIndex === index ? null : index)}
               >
-                {/* Speech Bubble - Added */}
-                <div 
+                {/* Speech Bubble */}
+                <div
                   className={`absolute -top-12 left-1/2 transform -translate-x-1/2 z-20 
-                    opacity-0 translate-y-2 group-hover:opacity-100 group-hover:translate-y-0 
-                    transition-all duration-300 ease-out pointer-events-none`}
+                    transition-opacity duration-150 ease-in pointer-events-none
+                    w-full px-4 md:w-auto md:px-0
+                    ${activeIndex === index ? 'opacity-100' : 'opacity-0 md:group-hover:opacity-100'}`}
                 >
-                  <div className="bg-blue-700 text-white px-4 py-2 rounded-full text-sm whitespace-nowrap">
+                  <div className="bg-blue-700 text-white px-4 py-2 rounded-full text-sm whitespace-normal md:whitespace-nowrap">
                     {college.name}
-                    {/* Triangle pointer */}
                     <div className="absolute h-3 w-3 bg-blue-700 transform rotate-45 left-1/2 -bottom-1 -translate-x-1/2"></div>
                   </div>
                 </div>
 
-                {/* Existing Star Container and content */}
-                <div className="w-36 h-36 sm:w-44 sm:h-44 md:w-48 md:h-48 relative">
+                {/* Star Container */}
+                <div className="w-32 h-32 sm:w-36 sm:h-36 md:w-48 md:h-48 relative">
                   {/* Border/Background Layer */}
                   <div className="absolute inset-0 bg-gradient-to-r from-blue-100 to-blue-50 p-2"
                     style={{
@@ -564,12 +573,17 @@ function HomePage() {
                       alt={college.name}
                       layout="fill"
                       objectFit="cover"
-                      className="transform transition-transform duration-300 group-hover:scale-110"
+                      className={`transform transition-transform duration-150 
+                        ${activeIndex === index ? 'scale-110' : 'md:group-hover:scale-110'}`}
                     />
                   </div>
 
-                  {/* Hover Overlay */}
-                  <div className="absolute inset-0 bg-black bg-opacity-60 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-center justify-center"
+                  {/* Hover/Touch Overlay */}
+                  <div
+                    className={`absolute inset-0 bg-black bg-opacity-60 
+                      transition-opacity duration-150 flex items-center justify-center 
+                      touch-action-manipulation
+                      ${activeIndex === index ? 'opacity-100' : 'opacity-0 md:group-hover:opacity-100'}`}
                     style={{
                       clipPath: "polygon(50% 0, 66% 26%, 98% 35%, 76% 57%, 79% 91%, 50% 70%, 21% 91%, 24% 57%, 2% 35%, 34% 26%)"
                     }}
@@ -582,10 +596,9 @@ function HomePage() {
                   {/* Small Star Icon */}
                   <div className="absolute -top-1 -right-1 text-orange-500 z-10">
                     <svg width="20" height="20" viewBox="0 0 27 25" fill="none" xmlns="http://www.w3.org/2000/svg">
-                      <path d="M15.5446 7.27036C15.8055 7.55433 14.3327 12.499 14.6627 13.5833C14.9419 14.5008 18.4568 16.9887 19.0325 18.1407L12.5796 19.1217L9.96502 24.8516C8.94829 23.9158 7.74504 19.6757 6.8081 19.0905C5.79137 18.4559 1.81719 18.5183 0.43927 18.1407C1.00316 16.8984 4.79405 14.5642 5.05497 13.579C5.35255 12.456 3.88191 8.7257 4.16008 7.26929C4.36278 7.04018 9.00652 10.0036 9.63725 10.0444C10.6227 10.1079 15.26 6.95736 15.5468 7.26929L15.5446 7.27036Z" fill="#F47D07"/>
+                      <path d="M15.5446 7.27036C15.8055 7.55433 14.3327 12.499 14.6627 13.5833C14.9419 14.5008 18.4568 16.9887 19.0325 18.1407L12.5796 19.1217L9.96502 24.8516C8.94829 23.9158 7.74504 19.6757 6.8081 19.0905C5.79137 18.4559 1.81719 18.5183 0.43927 18.1407C1.00316 16.8984 4.79405 14.5642 5.05497 13.579C5.35255 12.456 3.88191 8.7257 4.16008 7.26929C4.36278 7.04018 9.00652 10.0036 9.63725 10.0444C10.6227 10.1079 15.26 6.95736 15.5468 7.26929L15.5446 7.27036Z" fill="#F47D07" />
                     </svg>
                   </div>
-
                 </div>
               </motion.div>
             ))}
@@ -610,7 +623,7 @@ function HomePage() {
             <div className="space-y-6">
               {/* FAQ Item 1 */}
               <div className="bg-white rounded-lg shadow-sm">
-                <button 
+                <button
                   className="w-full flex items-center justify-between p-6 text-left"
                   onClick={() => handleFaqClick(1)}
                 >
@@ -630,7 +643,7 @@ function HomePage() {
 
               {/* FAQ Item 2 */}
               <div className="bg-white rounded-lg shadow-sm">
-                <button 
+                <button
                   className="w-full flex items-center justify-between p-6 text-left"
                   onClick={() => handleFaqClick(2)}
                 >
@@ -650,7 +663,7 @@ function HomePage() {
 
               {/* FAQ Item 3 */}
               <div className="bg-white rounded-lg shadow-sm">
-                <button 
+                <button
                   className="w-full flex items-center justify-between p-6 text-left"
                   onClick={() => handleFaqClick(3)}
                 >
@@ -673,7 +686,7 @@ function HomePage() {
             <div className="space-y-6">
               {/* FAQ Item 4 */}
               <div className="bg-white rounded-lg shadow-sm">
-                <button 
+                <button
                   className="w-full flex items-center justify-between p-6 text-left"
                   onClick={() => handleFaqClick(4)}
                 >
@@ -693,7 +706,7 @@ function HomePage() {
 
               {/* FAQ Item 5 */}
               <div className="bg-white rounded-lg shadow-sm">
-                <button 
+                <button
                   className="w-full flex items-center justify-between p-6 text-left"
                   onClick={() => handleFaqClick(5)}
                 >
@@ -713,7 +726,7 @@ function HomePage() {
 
               {/* FAQ Item 6 */}
               <div className="bg-white rounded-lg shadow-sm">
-                <button 
+                <button
                   className="w-full flex items-center justify-between p-6 text-left"
                   onClick={() => handleFaqClick(6)}
                 >
@@ -738,7 +751,7 @@ function HomePage() {
 
 
       <section className="bg-white py-16">
-        <div className="max-w-7xl mx-auto px-4 relative">
+        <div className="max-w-7xl mx-auto px-8 md:px-4 relative">
           {/* Heading */}
           <div className="text-center mb-12">
             <p className="text-orange-500 font-medium mb-2">Happy Students & Parents</p>
@@ -747,96 +760,147 @@ function HomePage() {
             </h2>
           </div>
 
-          {/* Swiper Slider */}
-          <Swiper
-            modules={[Navigation]}
-            spaceBetween={24}
-            slidesPerView={1}
-            breakpoints={{
-              768: { slidesPerView: 2 },
-              1024: { slidesPerView: 3 },
-            }}
-            navigation={{ prevEl: ".prev-btn", nextEl: ".next-btn" }}
-            className="relative"
-          >
-            {testimonials.map((testimonial) => (
-              <SwiperSlide key={testimonial.id}>
-                <div className="bg-gray-50 p-8 rounded-lg h-full flex flex-col min-h-[320px]">
-                  {/* Quote Mark */}
-                  <div className="text-blue-600 text-4xl font-serif mb-4">
-                  <FaQuoteLeft className="text-blue-600 text-2xl mb-2" />
-                  </div>
+          {/* Swiper Container with padding for arrows */}
+          <div className="relative px-2 md:px-10">
+            <Swiper
+              modules={[Navigation]}
+              spaceBetween={24}
+              slidesPerView={1}
+              breakpoints={{
+                768: { slidesPerView: 2 },
+                1024: { slidesPerView: 3 },
+              }}
+              navigation={{ prevEl: ".prev-btn", nextEl: ".next-btn" }}
+              className="relative"
+            >
+              {testimonials.map((testimonial) => (
+                <SwiperSlide key={testimonial.id}>
+                  <div className="bg-gray-50 p-8 rounded-lg h-full flex flex-col min-h-[320px]">
+                    {/* Quote Mark */}
+                    <div className="text-blue-600 text-4xl font-serif mb-4">
+                      <FaQuoteLeft className="text-blue-600 text-2xl mb-2" />
+                    </div>
 
-                  {/* Stars */}
-                  <div className="flex gap-1 mb-4">
-                    {[...Array(5)].map((_, index) => (
-                      <svg
-                        key={index}
-                        className={`w-5 h-5 ${
-                          index < testimonial.rating 
-                            ? 'text-orange-400' 
+                    {/* Stars */}
+                    <div className="flex gap-1 mb-4">
+                      {[...Array(5)].map((_, index) => (
+                        <svg
+                          key={index}
+                          className={`w-5 h-5 ${index < testimonial.rating
+                            ? 'text-orange-400'
                             : 'text-gray-300'
-                        }`}
-                        fill="currentColor"
-                        viewBox="0 0 20 20"
-                      >
-                        <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z" />
-                      </svg>
-                    ))}
-                  </div>
+                            }`}
+                          fill="currentColor"
+                          viewBox="0 0 20 20"
+                        >
+                          <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z" />
+                        </svg>
+                      ))}
+                    </div>
 
-                  {/* Testimonial Text */}
-                  <p className="text-gray-600 flex-grow mb-6 text-base leading-relaxed">
-                    {testimonial.text}
-                  </p>
-
-                  {/* Profile */}
-                  <div className="flex items-center gap-3">
-                    <img 
-                      src={testimonial.image} 
-                      alt={testimonial.name} 
-                      className="w-12 h-12 rounded-full object-cover"
-                    />
-                    <p className="font-semibold text-gray-800">
-                      {testimonial.name}
+                    {/* Testimonial Text */}
+                    <p className="text-gray-600 flex-grow mb-6 text-base leading-relaxed">
+                      {testimonial.text}
                     </p>
-                  </div>
-                </div>
-              </SwiperSlide>
-            ))}
-          </Swiper>
 
-          {/* Navigation Buttons */}
-          {/* <div className="flex justify-center gap-4 mt-8"> */}
-            <button className="prev-btn absolute z-1 md:top-55 top-120 md:-left-8 left-50 w-10 h-10 flex items-center justify-center rounded-full border border-blue-600 text-blue-600 hover:bg-blue-50 transition-colors">
-              <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    {/* Profile */}
+                    <div className="flex items-center gap-3">
+                      <img
+                        src={testimonial.image}
+                        alt={testimonial.name}
+                        className="w-12 h-12 rounded-full object-cover"
+                      />
+                      <p className="font-semibold text-gray-800">
+                        {testimonial.name}
+                      </p>
+                    </div>
+                  </div>
+                </SwiperSlide>
+              ))}
+            </Swiper>
+
+            {/* Navigation Buttons - Updated positioning */}
+            <button
+              className="prev-btn absolute top-1/2 -translate-y-1/2 
+                -left-2 md:-left-5 
+                w-8 h-8 md:w-10 md:h-10 
+                flex items-center justify-center 
+                rounded-full border border-blue-600 
+                text-blue-600 hover:bg-blue-50 
+                transition-colors bg-white
+                z-10"
+            >
+              <svg className="w-4 h-4 md:w-6 md:h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M15 19l-7-7 7-7" />
               </svg>
             </button>
-            <button className="next-btn absolute z-1 md:top-55 top-120 md:-right-8 right-50 w-10 h-10 flex items-center justify-center rounded-full border border-blue-600 text-blue-600 hover:bg-blue-50 transition-colors">
-              <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <button
+              className="next-btn absolute top-1/2 -translate-y-1/2 
+                -right-2 md:-right-5 
+                w-8 h-8 md:w-10 md:h-10 
+                flex items-center justify-center 
+                rounded-full border border-blue-600 
+                text-blue-600 hover:bg-blue-50 
+                transition-colors bg-white
+                z-10"
+            >
+              <svg className="w-4 h-4 md:w-6 md:h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M9 5l7 7-7 7" />
               </svg>
             </button>
-          {/* </div> */}
+          </div>
         </div>
       </section>
 
 
-      <section className="py-12 ">
-      <div className="max-w-7xl mx-auto px-4 text-center">
-        <p className="text-orange-500 font-semibold">Our Students Review about us</p>
-        <h2 className="text-3xl font-bold mb-8">Testimonials</h2>
 
-        <motion.div
-          className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6"
-          initial={{ opacity: 0, y: 50 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.6, ease: "easeOut" }}
-        >
-          {videos.map((video) => (
+      <section className="py-12">
+  <div className="max-w-7xl mx-auto px-4 text-center">
+    <p className="text-orange-500 font-semibold">Our Students Review about us</p>
+    <h2 className="text-3xl font-bold mb-8">Testimonials</h2>
+
+    {/* Desktop Grid View */}
+    <div className="hidden md:block">
+      <motion.div
+        className="grid md:grid-cols-2 lg:grid-cols-3 gap-6"
+        initial={{ opacity: 0, y: 50 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ duration: 0.6, ease: "easeOut" }}
+      >
+        {videos.map((video) => (
+          <motion.div
+            key={video.id}
+            className="bg-white shadow-lg rounded-lg overflow-hidden"
+            whileHover={{ scale: 1.05 }}
+          >
+            <div className="relative w-full h-64">
+              <iframe
+                className="w-full h-full"
+                src={video.src}
+                title={`Video ${video.id}`}
+                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                allowFullScreen
+              />
+            </div>
+          </motion.div>
+        ))}
+      </motion.div>
+    </div>
+
+    {/* Mobile Slider View */}
+    <div className="md:hidden relative">
+      <Swiper
+        modules={[Navigation]}
+        spaceBetween={20}
+        slidesPerView={1}
+        navigation={{
+          nextEl: '.swiper-button-next',
+          prevEl: '.swiper-button-prev',
+        }}
+      >
+        {videos.map((video) => (
+          <SwiperSlide key={video.id}>
             <motion.div
-              key={video.id}
               className="bg-white shadow-lg rounded-lg overflow-hidden"
               whileHover={{ scale: 1.05 }}
             >
@@ -850,38 +914,52 @@ function HomePage() {
                 />
               </div>
             </motion.div>
-          ))}
-        </motion.div>
-      </div>
-    </section>
+          </SwiperSlide>
+        ))}
+
+        {/* Navigation Buttons */}
+        <div className="swiper-button-prev w-10 h-10 flex items-center justify-center rounded-full border border-blue-600 text-blue-600 hover:bg-blue-50 transition-colors bg-white">
+          <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M15 19l-7-7 7-7" />
+          </svg>
+        </div>
+        <div className="swiper-button-next w-10 h-10 flex items-center justify-center rounded-full border border-blue-600 text-blue-600 hover:bg-blue-50 transition-colors bg-white">
+          <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M9 5l7 7-7 7" />
+          </svg>
+        </div>
+      </Swiper>
+    </div>
+  </div>
+</section>
 
 
-    <motion.section
-      className="bg-blue-800 max-w-5xl relative z-2 mx-auto text-white text-center py-10 px-6 md:px-12"
-      initial={{ opacity: 0, y: -50 }}
-      animate={{ opacity: 1, y: 0 }}
-      transition={{ duration: 0.6, ease: "easeOut" }}
-    >
-      <h2 className="text-2xl md:text-3xl font-bold">
-        Get one week <span className="text-white">FREE TRIAL CLASS</span> for your child
-      </h2>
-      <p className="mt-2 text-sm md:text-base">
-        We will give you a refreshing learning environment for your kid
-      </p>
-
-      <motion.button
-        whileHover={{ scale: 1.05 }}
-        whileTap={{ scale: 0.95 }}
-        className="mt-4 bg-orange-500 hover:bg-orange-600 text-white font-semibold py-2 px-6 rounded-md transition"
+      <motion.section
+        className="bg-blue-800 max-w-5xl relative z-2 mx-auto text-white text-center py-10 px-6 md:px-12"
+        initial={{ opacity: 0, y: -50 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ duration: 0.6, ease: "easeOut" }}
       >
-        For Enquiry
-      </motion.button>
-    </motion.section>
+        <h2 className="text-2xl md:text-3xl font-bold">
+          Get one week <span className="text-white">FREE TRIAL CLASS</span> for your child
+        </h2>
+        <p className="mt-2 text-sm md:text-base">
+          We will give you a refreshing learning environment for your kid
+        </p>
+
+        <motion.button
+          whileHover={{ scale: 1.05 }}
+          whileTap={{ scale: 0.95 }}
+          className="mt-4 bg-orange-500 hover:bg-orange-600 text-white font-semibold py-2 px-6 rounded-md transition"
+        >
+          For Enquiry
+        </motion.button>
+      </motion.section>
 
 
-    <section>
-      <Footer/>
-    </section>
+      <section>
+        <Footer />
+      </section>
     </div>
   )
 }

@@ -90,7 +90,7 @@ const CourseSlider = () => {
             >
                 {courses.map((course) => (
                     <SwiperSlide key={course.id} className="flex justify-center">
-                        <div className="w-full sm:w-[360px] h-[450px] bg-white rounded-lg shadow-md flex flex-col">
+                        <div className="w-full md:w-[360px] h-[450px] bg-white rounded-lg shadow-md flex flex-col">
                             {/* Image Section */}
                             <div className="h-[180px]">
                                 <Image src={course.image} alt={course.title} width={360} height={180} className="rounded-t-lg w-full h-full object-cover" />

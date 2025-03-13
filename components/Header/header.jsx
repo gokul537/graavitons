@@ -40,7 +40,7 @@ const Header = () => {
         </Link>
 
         {/* Desktop Menu */}
-        <div className="hidden md:flex space-x-6 items-center">
+        <div className="hidden lg:flex space-x-6 items-center">
           <Link href="/" className={`font-medium ${pathname === "/" ? "text-blue-600 font-bold" : "hover:text-blue-600"}`}>
             Home
           </Link>
@@ -103,7 +103,7 @@ const Header = () => {
         </div>
 
         {/* Mobile Menu Button */}
-        <button className="md:hidden z-50" onClick={() => setIsOpen(!isOpen)}>
+        <button className="lg:hidden z-50" onClick={() => setIsOpen(!isOpen)}>
           {isOpen ? <X size={28} /> : <Menu size={28} />}
         </button>
       </div>
