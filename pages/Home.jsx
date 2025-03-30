@@ -157,9 +157,9 @@ function HomePage() {
   const [staff, setStaff] = useState(0);
   const [achievers, setAchievers] = useState(0);
   const [hoveredIndex, setHoveredIndex] = useState(null);
-    // Define the state for tracking open FAQ
-    const [openIndex, setOpenIndex] = useState(null); // Move state outside of map function
-    const [activeIndex, setActiveIndex] = useState(null);
+  // Define the state for tracking open FAQ
+  const [openIndex, setOpenIndex] = useState(null); // Move state outside of map function
+  const [activeIndex, setActiveIndex] = useState(null);
   // Function to animate numbers
   const animateCount = (setter, finalValue, duration = 2000) => {
     let start = 0;
@@ -202,7 +202,7 @@ function HomePage() {
     setOpenIndex(openIndex === index ? null : index);
   };
 
- 
+
 
   return (
     <div>
@@ -531,10 +531,10 @@ function HomePage() {
               <motion.div
                 key={college.id}
                 className={`relative group transform cursor-pointer ${index === Math.floor(colleges.length / 2)
-                    ? 'md:rotate-0'
-                    : index < Math.floor(colleges.length / 2)
-                      ? 'md:rotate-12'
-                      : 'md:-rotate-12'
+                  ? 'md:rotate-0'
+                  : index < Math.floor(colleges.length / 2)
+                    ? 'md:rotate-12'
+                    : 'md:-rotate-12'
                   }`}
                 whileHover={{ scale: 1.1, zIndex: 20, rotate: 0 }}
                 whileTap={{ scale: 1.1, zIndex: 20, rotate: 0 }}
@@ -856,83 +856,83 @@ function HomePage() {
 
 
       <section className="py-12">
-  <div className="max-w-7xl mx-auto px-4 text-center">
-    <p className="text-orange-500 font-semibold">Our Students Review about us</p>
-    <h2 className="text-3xl font-bold mb-8">Testimonials</h2>
+        <div className="max-w-7xl mx-auto px-4 text-center">
+          <p className="text-orange-500 font-semibold">Our Students Review about us</p>
+          <h2 className="text-3xl font-bold mb-8">Testimonials</h2>
 
-    {/* Desktop Grid View */}
-    <div className="hidden md:block">
-      <motion.div
-        className="grid md:grid-cols-2 lg:grid-cols-3 gap-6"
-        initial={{ opacity: 0, y: 50 }}
-        animate={{ opacity: 1, y: 0 }}
-        transition={{ duration: 0.6, ease: "easeOut" }}
-      >
-        {videos.map((video) => (
-          <motion.div
-            key={video.id}
-            className="bg-white shadow-lg rounded-lg overflow-hidden"
-            whileHover={{ scale: 1.05 }}
-          >
-            <div className="relative w-full h-64">
-              <iframe
-                className="w-full h-full"
-                src={video.src}
-                title={`Video ${video.id}`}
-                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-                allowFullScreen
-              />
-            </div>
-          </motion.div>
-        ))}
-      </motion.div>
-    </div>
-
-    {/* Mobile Slider View */}
-    <div className="md:hidden relative">
-      <Swiper
-        modules={[Navigation]}
-        spaceBetween={20}
-        slidesPerView={1}
-        navigation={{
-          nextEl: '.swiper-button-next',
-          prevEl: '.swiper-button-prev',
-        }}
-      >
-        {videos.map((video) => (
-          <SwiperSlide key={video.id}>
+          {/* Desktop Grid View */}
+          <div className="hidden md:block">
             <motion.div
-              className="bg-white shadow-lg rounded-lg overflow-hidden"
-              whileHover={{ scale: 1.05 }}
+              className="grid md:grid-cols-2 lg:grid-cols-3 gap-6"
+              initial={{ opacity: 0, y: 50 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.6, ease: "easeOut" }}
             >
-              <div className="relative w-full h-64">
-                <iframe
-                  className="w-full h-full"
-                  src={video.src}
-                  title={`Video ${video.id}`}
-                  allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-                  allowFullScreen
-                />
-              </div>
+              {videos.map((video) => (
+                <motion.div
+                  key={video.id}
+                  className="bg-white shadow-lg rounded-lg overflow-hidden"
+                  whileHover={{ scale: 1.05 }}
+                >
+                  <div className="relative w-full h-64">
+                    <iframe
+                      className="w-full h-full"
+                      src={video.src}
+                      title={`Video ${video.id}`}
+                      allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                      allowFullScreen
+                    />
+                  </div>
+                </motion.div>
+              ))}
             </motion.div>
-          </SwiperSlide>
-        ))}
+          </div>
 
-        {/* Navigation Buttons */}
-        <div className="swiper-button-prev w-10 h-10 flex items-center justify-center rounded-full border border-blue-600 text-blue-600 hover:bg-blue-50 transition-colors bg-white">
-          <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M15 19l-7-7 7-7" />
-          </svg>
+          {/* Mobile Slider View */}
+          <div className="md:hidden relative">
+            <Swiper
+              modules={[Navigation]}
+              spaceBetween={20}
+              slidesPerView={1}
+              navigation={{
+                nextEl: '.swiper-button-next',
+                prevEl: '.swiper-button-prev',
+              }}
+            >
+              {videos.map((video) => (
+                <SwiperSlide key={video.id}>
+                  <motion.div
+                    className="bg-white shadow-lg rounded-lg overflow-hidden"
+                    whileHover={{ scale: 1.05 }}
+                  >
+                    <div className="relative w-full h-64">
+                      <iframe
+                        className="w-full h-full"
+                        src={video.src}
+                        title={`Video ${video.id}`}
+                        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                        allowFullScreen
+                      />
+                    </div>
+                  </motion.div>
+                </SwiperSlide>
+              ))}
+
+              {/* Navigation Buttons */}
+              <div className="swiper-button-prev w-10 h-10 flex items-center justify-center rounded-full border border-blue-600 text-blue-600 hover:bg-blue-50 transition-colors bg-white">
+                <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M15 19l-7-7 7-7" />
+                </svg>
+              </div>
+              <div className="swiper-button-next w-10 h-10 flex items-center justify-center rounded-full border border-blue-600 text-blue-600 hover:bg-blue-50 transition-colors bg-white">
+                <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M9 5l7 7-7 7" />
+                </svg>
+              </div>
+            </Swiper>
+          </div>
         </div>
-        <div className="swiper-button-next w-10 h-10 flex items-center justify-center rounded-full border border-blue-600 text-blue-600 hover:bg-blue-50 transition-colors bg-white">
-          <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M9 5l7 7-7 7" />
-          </svg>
-        </div>
-      </Swiper>
-    </div>
-  </div>
-</section>
+      </section>
 
 
       <motion.section
@@ -948,19 +948,18 @@ function HomePage() {
           We will give you a refreshing learning environment for your kid
         </p>
 
-        <motion.button
-          whileHover={{ scale: 1.05 }}
-          whileTap={{ scale: 0.95 }}
+        <button
+        
           className="mt-4 bg-orange-500 hover:bg-orange-600 text-white font-semibold py-2 px-6 rounded-md transition"
         >
           For Enquiry
-        </motion.button>
+        </button>
       </motion.section>
 
 
-      <section>
-        <Footer />
-      </section>
+
+
+
     </div>
   )
 }

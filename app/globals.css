@@ -46,3 +46,150 @@ body {
 .swiper-button-next {
   right: 10px !important;
 }
+
+
+
+@keyframes dash {
+  to {
+    stroke-dashoffset: -20;
+  }
+}
+
+path {
+  animation: dash 2s linear infinite;
+}
+
+
+
+
+
+/* Custom styles for Swiper */
+.testimonial-swiper .swiper-pagination-bullet {
+  width: 8px;
+  height: 8px;
+  background: #f97316;
+  opacity: 0.5;
+}
+
+.testimonial-swiper .swiper-pagination-bullet-active {
+  opacity: 1;
+}
+
+.testimonial-swiper .swiper-button-next,
+.testimonial-swiper .swiper-button-prev {
+  position: absolute;
+  top: 100% !important;
+  transform: translateY(-50%) !important;
+  width: 40px !important;
+  height: 40px !important;
+  background: white;
+  border: 2px solid #2563eb;
+  border-radius: 50%;
+  color: #2563eb;
+}
+
+/* Mobile styles (default) */
+.testimonial-swiper .swiper-button-prev {
+  left: 30% !important;
+}
+
+.testimonial-swiper .swiper-button-next {
+  right: 30% !important;
+}
+
+/* Tablet styles */
+@media (min-width: 768px) {
+  .testimonial-swiper .swiper-button-prev {
+    left: 35% !important;
+  }
+  
+  .testimonial-swiper .swiper-button-next {
+    right: 35% !important;
+  }
+}
+
+/* Desktop styles */
+@media (min-width: 1024px) {
+  .testimonial-swiper .swiper-button-prev {
+    left: 40% !important;
+  }
+  
+  .testimonial-swiper .swiper-button-next {
+    right: 40% !important;
+  }
+}
+
+/* Make buttons smaller on mobile */
+@media (max-width: 767px) {
+  .testimonial-swiper .swiper-button-next,
+  .testimonial-swiper .swiper-button-prev {
+    width: 30px !important;
+    height: 30px !important;
+  }
+  
+  /* Adjust arrow size for mobile */
+  .testimonial-swiper .swiper-button-next::after,
+  .testimonial-swiper .swiper-button-prev::after {
+    width: 8px;
+    height: 8px;
+  }
+}
+
+/* Custom arrow icons */
+.testimonial-swiper .swiper-button-next::after,
+.testimonial-swiper .swiper-button-prev::after {
+  content: '';
+  width: 10px;
+  height: 10px;
+  border-right: 2px solid currentColor;
+  border-bottom: 2px solid currentColor;
+}
+
+.testimonial-swiper .swiper-button-prev::after {
+  transform: rotate(135deg);
+  margin-right: -4px;
+}
+
+.testimonial-swiper .swiper-button-next::after {
+  transform: rotate(-45deg);
+  margin-left: -4px;
+}
+
+/* Hover effects */
+.testimonial-swiper .swiper-button-next:hover,
+.testimonial-swiper .swiper-button-prev:hover {
+  background: #f8fafc; /* Light blue hover */
+}
+
+/* Active slide animation */
+.swiper-slide-active .testimonial-card {
+  transform: scale(2.05);
+}
+
+.testimonial-swiper .swiper-button-next,
+.testimonial-swiper .swiper-button-prev {
+  position: absolute;
+  top: 100% !important;
+  transform: translateY(-58%);
+  /* left: 65%; */
+}
+
+
+
+.testimonial-swiper .swiper-wrapper {
+  padding-top: 20px;
+  padding-bottom: 20px;
+}
+
+.testimonial-swiper .swiper-slide {
+  transition: all 0.3s ease;
+  height: auto;
+}
+
+.testimonial-swiper .swiper-slide-active {
+  transform: translateY(0);
+}
+
+.testimonial-swiper .swiper-slide:not(.swiper-slide-active) {
+  transform: translateY(60px);
+}
